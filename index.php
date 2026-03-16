@@ -198,96 +198,167 @@
 //print(myfanc($num1));
 //echo "<br/>";
 
-class Person
-{
-    public $name;
-    public $hp;
-    public $dmg;
+//class Person
+//{
+//    public $name;
+//    public $hp;
+//    public $dmg;
+//
+//    public $heal;
+//    public $alive;
+//
+//    public function __construct($name, $hp , $dmg , $alive , $heal ) {
+//        $this->name = $name;
+//        $this->hp = $hp;
+//        $this->alive = $alive;
+//        $this->heal = $heal;
+//        $this->dmg = $dmg;
+//    }
+//    public function takedamage($dmg){
+//        if (!$this->alive) return;
+//        $this->hp -= $dmg;
+//        if ($this->hp <= 0) {
+//            $this->hp = 0;
+//            $this->alive = 0;
+//            echo "{$this->name} погиб \n";
+//        } else {
+//            echo "{$this->name} получил {$dmg} урона \n";
+//            echo "Осталось {$this->hp}\n";
+//        }
+//
+//
+//    }
+//    public function getheal($heal){
+//        if (!$this->alive) return;
+//        $this->hp += $heal;
+//        if ($this->hp > 100) $this->hp = 100;
+//        echo "{$this->name} вылечели. Теперь у {$this->hp} здоровья.\n";
+//    }
+//}
+//class Warrior extends Person
+//{
+//    public function __construct($name, $hp = 100, $dmg = 10, $heal = 0, $alive = 1)
+//    {
+//    }
+//
+//    public function attack($target)
+//    {
+//        if (!$this->alive) {
+//            return;
+//        }
+//        echo "{$this->name} атаковал {$target->name}\n";
+//        $target->takeDamage($this->dmg);
+//    }
+//}
+//
+//
+//class Zhitel extends Person {
+//    public function __construct($name, $hp = 100, $dmg = 0, $heal = 0, $alive = 1){}
+//
+//}
+//
+//class Healer extends Person {
+//    public function __construct($name, $hp = 100, $heal = 5, $dmg = 0, $alive = 1) {
+//    }
+//    public function heal_person($target) {
+//        if (!$this->alive) {
+//            return;
+//        }
+//        echo "{$this->name} лечит {$target->name}\n";
+//        $target->receiveHeal($this->heal);
+//    }
+//    public function attack($target) {
+//        if (!$this->alive) {
+//            return;
+//        }
+//
+//    }
+//
+//}
+//
+//
+//
+//$village1_warrior = new Warrior("Воин из деревни 1", 100, rand(5,10));
+//$village1_healer = new Healer("Лекарь из деревни 1", 100, 5);
+//$village1_zhitel = new Zhitel("Житель деревни 1 по имени Святослав");
+//
+//
+//$village2_warrior = new Warrior("Воин из деревни 2", 100, rand(5,10));
+//$village2_healer = new Healer("Лекарь из деревни 2", 100, 5);
+//$village2_zhitel = new Zhitel("Житель деревни 2 по имени Святой Кирилл");
+//
+//
 
-    public $heal;
-    public $alive;
+try {
+    $host = '127.0.0.1';
+    $db = 'miha';
+    $user = 'root';
+    $pass = '';
+    $charset = 'utf8';
 
-    public function __construct($name, $hp , $dmg , $alive , $heal ) {
-        $this->name = $name;
-        $this->hp = $hp;
-        $this->alive = $alive;
-        $this->heal = $heal;
-        $this->dmg = $dmg;
+    $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+    $opt = [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false,
+    ];
+    // Получение объекта PDO
+    $pdo = new PDO($dsn, $user, $pass, $opt);
+    var_dump($pdo);
+    echo "<br/>";
+
+    // Получение данных из таблицы student по полю name
+    $stmt = $pdo->query('SELECT * FROM student');
+    var_dump($stmt);
+    echo "<br/>";
+    while ($row = $stmt->fetch()) {
+        echo $row['fam'] . " " . $row['name'] . " " . $row['ote'] . " " . $row['stepen'] . " " . $row['dr_st'];
+        echo "<br/>";
+        //printf("%d", $row['stepen']);
     }
-    public function takedamage($dmg){
-        if (!$this->alive) return;
-        $this->hp -= $dmg;
-        if ($this->hp <= 0) {
-            $this->hp = 0;
-            $this->alive = 0;
-            echo "{$this->name} погиб \n";
-        } else {
-            echo "{$this->name} получил {$dmg} урона \n";
-            echo "Осталось {$this->hp}\n";
-        }
+
+    // Вставка данных
+//    $name = "iPhone 11";
+//    $company = "Apple";
+//    $product_count = 7;
+//    $price = 22000;
+//
+//
+//    $stmt = $pdo->prepare("INSERT INTO products (name, company,product_count,price) VALUES (?, ?, ?, ?)");
+//    $stmt->execute(['iPhone 17', 'Apple', 7,22000]);
+    // второй вариант
+//    $stmt->bindParam(1, $name);
+//    $stmt->bindParam(2, $company);
+//    $stmt->bindParam(3, $product_count);
+//    $stmt->bindParam(4, $price);
+//    $stmt->execute();
 
 
+//    задание 1
+//    $stmt = $pdo->query('DELETE FROM products WHERE id = 9');
+//    var_dump($stmt);
+//    задание 2
+//    $stmt = $pdo->prapare('UPDATE products SET name = "iPhone 6" WHERE id = 2');
+
+//    задание 3
+
+//    задание 4
+    $stmt = $pdo->query('SELECT * FROM student');
+    var_dump($stmt);
+    echo "<br/>";
+    while ($row = $stmt->fetch()) {
+        echo $row['fam'] . " " . $row['name'] . " " . $row['ote'] . " " . $row['stepen'] . " " . $row['dr_st'];
+        echo "<br/>";
+        //printf("%d", $row['stepen']);
     }
-    public function getheal($heal){
-        if (!$this->alive) return;
-        $this->hp += $heal;
-        if ($this->hp > 100) $this->hp = 100;
-        echo "{$this->name} вылечели. Теперь у {$this->hp} здоровья.\n";
-    }
+//    $stmt = $pdo->query('DELETE FROM student WHERE id = 0');
+    $stmt = $pdo->prepare("INSERT INTO student (fam, name,ote,stepen) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE");
+    $stmt->execute(['Карягин', 'Михаил', 'Сергеевич',0]);
+    $stmt = $pdo->query("INSERT INTO student2 SELECT * FROM student ON DUPLICATE KEY UPDATE");
+
+
+} catch (PDOException $e) {
+    die('Подключение не удалось: ' . $e->getMessage());
 }
-class Warrior extends Person
-{
-    public function __construct($name, $hp = 100, $dmg = 10, $heal = 0, $alive = 1)
-    {
-    }
-
-    public function attack($target)
-    {
-        if (!$this->alive) {
-            return;
-        }
-        echo "{$this->name} атаковал {$target->name}\n";
-        $target->takeDamage($this->dmg);
-    }
-}
-
-
-class Zhitel extends Person {
-    public function __construct($name, $hp = 100, $dmg = 0, $heal = 0, $alive = 1){}
-
-}
-
-class Healer extends Person {
-    public function __construct($name, $hp = 100, $heal = 5, $dmg = 0, $alive = 1) {
-    }
-    public function heal_person($target) {
-        if (!$this->alive) {
-            return;
-        }
-        echo "{$this->name} лечит {$target->name}\n";
-        $target->receiveHeal($this->heal);
-    }
-    public function attack($target) {
-        if (!$this->alive) {
-            return;
-        }
-
-    }
-
-}
-
-
-
-$village1_warrior = new Warrior("Воин из деревни 1", 100, rand(5,10));
-$village1_healer = new Healer("Лекарь из деревни 1", 100, 5);
-$village1_zhitel = new Zhitel("Житель деревни 1 по имени Святослав");
-
-
-$village2_warrior = new Warrior("Воин из деревни 2", 100, rand(5,10));
-$village2_healer = new Healer("Лекарь из деревни 2", 100, 5);
-$village2_zhitel = new Zhitel("Житель деревни 2 по имени Святой Кирилл");
-
-
-
 ?>
 
