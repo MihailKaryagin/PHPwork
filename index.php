@@ -289,33 +289,33 @@
 //
 //
 
-try {
-    $host = '127.0.0.1';
-    $db = 'miha';
-    $user = 'root';
-    $pass = '';
-    $charset = 'utf8';
-
-    $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-    $opt = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES => false,
-    ];
-    // Получение объекта PDO
-    $pdo = new PDO($dsn, $user, $pass, $opt);
-    var_dump($pdo);
-    echo "<br/>";
-
-    // Получение данных из таблицы student по полю name
-    $stmt = $pdo->query('SELECT * FROM student');
-    var_dump($stmt);
-    echo "<br/>";
-    while ($row = $stmt->fetch()) {
-        echo $row['fam'] . " " . $row['name'] . " " . $row['ote'] . " " . $row['stepen'] . " " . $row['dr_st'];
-        echo "<br/>";
-        //printf("%d", $row['stepen']);
-    }
+//try {
+//    $host = '127.0.0.1';
+//    $db = 'miha';
+//    $user = 'root';
+//    $pass = '';
+//    $charset = 'utf8';
+//
+//    $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+//    $opt = [
+//        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+//        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+//        PDO::ATTR_EMULATE_PREPARES => false,
+//    ];
+//    // Получение объекта PDO
+//    $pdo = new PDO($dsn, $user, $pass, $opt);
+//    var_dump($pdo);
+//    echo "<br/>";
+//
+//    // Получение данных из таблицы student по полю name
+//    $stmt = $pdo->query('SELECT * FROM student');
+//    var_dump($stmt);
+//    echo "<br/>";
+//    while ($row = $stmt->fetch()) {
+//        echo $row['fam'] . " " . $row['name'] . " " . $row['ote'] . " " . $row['stepen'] . " " . $row['dr_st'];
+//        echo "<br/>";
+//        //printf("%d", $row['stepen']);
+//    }
 
     // Вставка данных
 //    $name = "iPhone 11";
@@ -335,7 +335,7 @@ try {
 
 
 //    задание 1
-//    $stmt = $pdo->query('DELETE FROM products WHERE id = 9');
+//    $stmt = $pdo->prepare('DELETE FROM products WHERE id = 9');
 //    var_dump($stmt);
 //    задание 2
 //    $stmt = $pdo->prapare('UPDATE products SET name = "iPhone 6" WHERE id = 2');
@@ -343,22 +343,229 @@ try {
 //    задание 3
 
 //    задание 4
-    $stmt = $pdo->query('SELECT * FROM student');
-    var_dump($stmt);
-    echo "<br/>";
-    while ($row = $stmt->fetch()) {
-        echo $row['fam'] . " " . $row['name'] . " " . $row['ote'] . " " . $row['stepen'] . " " . $row['dr_st'];
-        echo "<br/>";
-        //printf("%d", $row['stepen']);
-    }
-//    $stmt = $pdo->query('DELETE FROM student WHERE id = 0');
-    $stmt = $pdo->prepare("INSERT INTO student (fam, name,ote,stepen) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE");
-    $stmt->execute(['Карягин', 'Михаил', 'Сергеевич',0]);
-    $stmt = $pdo->query("INSERT INTO student2 SELECT * FROM student ON DUPLICATE KEY UPDATE");
+//    $stmt = $pdo->prepare('SELECT * FROM student');
+//    var_dump($stmt);
+//    echo "<br/>";
+//    while ($row = $stmt->fetch()) {
+//        echo $row['fam'] . " " . $row['name'] . " " . $row['ote'] . " " . $row['stepen'] . " " . $row['dr_st'];
+//        echo "<br/>";
+//        //printf("%d", $row['stepen']);
+//    }
+////    $stmt = $pdo->query('DELETE FROM student WHERE id = 0');
+//    $stmt = $pdo->prepare("INSERT INTO student (fam, name,ote,stepen) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE");
+//    $stmt->execute(['Карягин', 'Михаил', 'Сергеевич',0]);
+//    $stmt = $pdo->prepare("INSERT INTO student2 SELECT * FROM student ON DUPLICATE KEY UPDATE");
+//
+//
+//} catch (PDOException $e) {
+//    die('Подключение не удалось: ' . $e->getMessage());
+//}
 
 
-} catch (PDOException $e) {
-    die('Подключение не удалось: ' . $e->getMessage());
-}
+//if($_GET !== null && ($_GET['param1'] === $_GET['param2'])) {
+//    $txt1 = 'Print';
+//    $txt2 = 'Hello';
+//    $txt3 = 'World';
+//
+//    $arr = array('txt1' => $txt1, 'txt2' => $txt2, 'txt3' => $txt3);
+//    $result = json_encode($arr);
+//    echo $result;
+//}else{
+//    return false;
+//}
+
+//try {
+//    $host = '127.0.0.1';
+//    $db = 'miha';
+//    $user = 'root';
+//    $pass = '';
+//    $charset = 'utf8';
+//
+//    $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+//    $opt = [
+//        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+//        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+//        PDO::ATTR_EMULATE_PREPARES => false,
+//    ];
+//    // Получение объекта PDO
+//    $pdo = new PDO($dsn, $user, $pass, $opt);
+//
+////    ФИО
+//    $fam = $_GET['fam'];
+//    $name = $_GET['name'];
+//    $otch = $_GET['otch'];
+//    $nickname = $_GET['nickname'];
+//    $password = $_GET['password'];
+//
+//    $stmt = $pdo->prepare("INSERT INTO registeredaccounts (fam,name,otch,nickname, password) VALUES (?,?,?,?,?)");
+//    $stmt->bindParam(1, $fam);
+//    $stmt->bindParam(2, $name);
+//    $stmt->bindParam(3, $otch);
+//    $stmt->bindParam(4, $nickname);
+//    $stmt->bindParam(5, $password);
+//    $stmt->execute();
+//
+//} catch (PDOException $e) {
+//    die('Подключение не удалось_2: ' . $e->getMessage());
+//}
+
+//try {
+//    $host = '127.0.0.1';
+//    $db = 'ld_shop';
+//    $user = 'root';
+//    $pass = '';
+//    $charset = 'utf8';
+//
+//    $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+//    $opt = [
+//        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+//        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+//        PDO::ATTR_EMULATE_PREPARES => false,
+//    ];
+//    // Получение объекта PDO
+//    $pdo = new PDO($dsn, $user, $pass, $opt);
+//
+////    ФИО
+//    $brand = $_GET['brand'];
+//    $price = $_GET['price'];
+//    $rating = $_GET['rating'];
+//    $img = $_GET['img'];
+//
+//    $stmt = $pdo->prepare("SELECT * FROM graphics_cards (brand,price,rating,img) VALUES (?,?,?,?)");
+//    $stmt->bindParam(1, $brand);
+//    $stmt->bindParam(2, $price);
+//    $stmt->bindParam(3, $rating);
+//    $stmt->bindParam(4, $img);
+//    $stmt->execute();
+//
+//} catch (PDOException $e) {
+//    die('Подключение не удалось_2: ' . $e->getMessage());
+//}
+
+
+
+
+//для курсовой
+
+
+//header('Content-Type: application/json; charset=utf-8');
+//
+//$host = '127.0.0.1';
+//$db   = 'ld_shop';
+//$user = 'root';
+//$pass = '';
+//$charset = 'utf8';
+//
+//$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+//$opt = [
+//    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+//    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+//    PDO::ATTR_EMULATE_PREPARES   => false,
+//];
+//
+//try {
+//    $pdo = new PDO($dsn, $user, $pass, $opt);
+//
+//    $stmt = $pdo->query("SELECT id, brand, price, rating, img FROM graphics_cards");
+//    $graphicsCards = $stmt->fetchAll();
+//
+//
+//    echo json_encode($graphicsCards);
+//
+//} catch (PDOException $e) {
+//    echo json_encode(['error' => 'Database connection error: ' . $e->getMessage()]);
+//} catch (Exception $e) {
+//    http_response_code(500);
+//    echo json_encode(['error' => 'An unexpected server error occurred: ' . $e->getMessage()]);
+//}
+
+//if($_GET !== null){
+//
+//    try {
+//        $host = '127.0.0.1';
+//        $db = 'miha';
+//        $user = 'root';
+//        $pass = '';
+//        $charset = 'utf8';
+//
+//        $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+//        $opt = [
+//            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+//            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+//            PDO::ATTR_EMULATE_PREPARES => false,
+//        ];
+//        // Получение объекта PDO
+//        $pdo = new PDO($dsn, $user, $pass, $opt);
+//
+//        // Получение данных из таблицы student по полю name
+//        $id = $_GET['id'];
+//        $stmt = $pdo->prepare("SELECT Name FROM rabotniki WHERE id=?");
+//        $stmt->bindParam(1, $id);
+////        $stmt->bindParam(2, $name);
+//        $stmt->execute();
+//
+//    } catch (PDOException $e) {
+//        die('Подключение не удалось: ' . $e->getMessage());
+//    }
+//
+//    $results = $stmt->fetchAll();
+//    $result = json_encode($results);
+//    echo $result;
+//}else{
+//    return false;
+//}
+
+
+//echo "<pre>";
+//print_r($_SERVER);
+//echo "</pre>";
+//
+//echo "========================================================";
+//echo "<br/>";
+//
+//$url = ((!empty($_SERVER['HTTPS'])) ? "https://" : "http://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+//echo $url;
+//
+//echo "=========================================================";
+//echo "<br/>";
+//
+//echo "<pre>";
+//var_dump(parse_url($url));
+//var_dump(parse_url($url, PHP_URL_SCHEME));
+//var_dump(parse_url($url, PHP_URL_HOST));
+//var_dump(parse_url($url, PHP_URL_USER));
+//var_dump(parse_url($url, PHP_URL_PASS));
+//var_dump(parse_url($url, PHP_URL_PORT));
+//var_dump(parse_url($url, PHP_URL_PATH));
+//var_dump(parse_url($url, PHP_URL_QUERY));
+//var_dump(parse_url($url, PHP_URL_FRAGMENT));
+//echo "</pre>";
+//echo "=========================================================";
+//echo "<br/>";
+//
+//echo "<pre>";
+//print_r($_POST);
+//echo "</pre>";
+//
+//echo "</pre>";
+//echo "=========================================================";
+//echo "<br/>";
+//
+//echo "<pre>";
+//print_r($_GET);
+//echo "</pre>";
+
+//include_once 'pdo.php';
+//
+//$uri = $_SERVER['REQUEST_URI'];
+//echo $uri;
+//
+//if ($uri === '/myserver/get')
+//    require 'get.php';
+//else if ($uri === '/post')
+//    require 'post.php';
+//else
+//    require '404.php';
 ?>
+
 
