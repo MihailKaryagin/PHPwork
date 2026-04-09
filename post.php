@@ -1,14 +1,23 @@
 <?php
-if($_POST != NULL){
+// Взаимодействие с front
 
-    $nickname = 'nickname';
-    $password = 'password';
+include_once "pdo.php";
 
-    $stmt = $pdo->prepare("INSERT INTO registeredaccounts (nickname, password) VALUES (?,?)");
+$db = new DB();
+$pdo = $db->connect();
+
+if($_POST !== null){
+
+    $nickname = $_POST['nickname'];
+    $pass = $_POST['pass'];
+
+//    $nickname = "nickname";
+//    $pass = "pass";
+
+    $stmt = $pdo->prepare("INSERT INTO regbasa (nickname, pass) VALUES (?, ?)");
     $stmt->bindParam(1, $nickname);
-    $stmt->bindParam(2, $password);
+    $stmt->bindParam(2, $pass);
     $stmt->execute();
 }else{
     return false;
 }
-?>

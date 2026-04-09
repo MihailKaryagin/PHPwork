@@ -12,16 +12,14 @@ try {
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES => false,
     ];
-    // Получение объекта PDO
     $pdo = new PDO($dsn, $user, $pass, $opt);
 
-    print_r($_GET);
+    print_r($_POST);
 
-//    ФИО
-    $email = $_GET['email'];
-    $nickname = $_GET['nickname'];
-    $password = $_GET['password'];
-    $phone = $_GET['phone'];
+    $email = $_POST['email'];
+    $nickname = $_POST['nickname'];
+    $password = $_POST['password'];
+    $phone = $_POST['phone'];
 
     $stmt = $pdo->prepare("INSERT INTO registeredaccounts (email,nickname,password,phone) VALUES (?,?,?,?)");
     $stmt->bindParam(1, $email);

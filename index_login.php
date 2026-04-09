@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 try {
     $host = '127.0.0.1';
     $db = 'ld_shop';
@@ -13,24 +13,23 @@ try {
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES => false,
     ];
-    // Получение объекта PDO
     $pdo = new PDO($dsn, $user, $pass, $opt);
 
-    print_r($_GET);
+    print_r($_POST);
 
-//    ФИО
-    $email = $_GET['email'];
-    $password = $_GET['password'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
+    $stmt = $pdo->prepare("SELECT * FROM registeredaccounts WHERE email = :email");
     $stmt->execute(['email' => $email]);
     $user = $stmt->fetch();
 
-    if ($user && password_verify($password, $user['password'])) {
+    if ($user && $password === $user['password']) {
         $_SESSION['id'] = $user['id'];
-        $_SESSION['username'] = $user['username'];
+        $_SESSION['nickname'] = $user['nickname'];
 
-        echo "Добро пожаловать, " . $user['username'] . "!";
+        echo "Добро пожаловать, " . $user['nickname'] . "!";
+        echo json_encode("Добро пожаловать, " . $user['nickname'] . "!");
 
     }else{
         echo "Неверный логин или пароль";
@@ -39,5 +38,4 @@ try {
 } catch (PDOException $e) {
     die('Подключение не удалось_2: ' . $e->getMessage());
 }
-
 ?>

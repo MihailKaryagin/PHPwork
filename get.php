@@ -1,15 +1,20 @@
 <?php
-if($_GET != null){
+include_once "pdo.php";
 
-    $id = $_GET["id"];
-    $stmt=$pdo->prepare("SELECT * FROM student WHERE id=:id");
-    $stmt->bindParam(1,$id);
+$db = new DB();
+$pdo = $db->connect();
+
+if($_GET !== null){
+    // Получение данных из таблицы student по полю id
+    $id = intval($_GET['id']);
+    $stmt = $pdo->prepare("SELECT name FROM student WHERE id=?");
+    $stmt->bindParam(1, $id);
     $stmt->execute();
 
-    $results=$stmt->fetchAll();
-    $result=json_encode($results);
+    $results = $stmt->fetchAll();
+    // print_r($results);
+    $result = json_encode($results);
     echo $result;
 }else{
     return false;
 }
-?>
